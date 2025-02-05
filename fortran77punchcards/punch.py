@@ -1,3 +1,5 @@
+"""Punchcards."""
+
 import os
 from PIL import Image
 from fortran77punchcards.character_encoding import encoding

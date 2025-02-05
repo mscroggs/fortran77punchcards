@@ -1,3 +1,5 @@
+"""Character encoding."""
+
 import typing
 
 encoding: typing.Dict[str, typing.List[int]] = {
