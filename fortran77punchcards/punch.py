@@ -38,18 +38,24 @@ def make_line(line: str) -> Image.Image:
     return img
 
 
-def make_script(
-    lines: typing.List[str],
-    image_width: int = 2000,
-) -> Image.Image:
+def make_script(lines: typing.List[str], width: int = 2000, row_size: int = 100) -> Image.Image:
     """Convert a FORTRAN77 script to images of punchcards."""
+    lines = [i for i in lines if i != ""]
     c = card()
-    height = int(image_width * c.size[1] / c.size[0])
-    image_height = int(height * (1.05 * len(lines) - 0.05))
+    height = int(width * c.size[1] / c.size[0])
+    padding = int(0.05 * height)
+
+    rows = min(len(lines), row_size)
+    cols = 1 + (len(lines) - 1) // row_size
+    image_height = int(height * rows + padding * (rows - 1))
+    image_width = int(width * cols + padding * (cols - 1))
+
     img = Image.new(mode="RGBA", size=(image_width, image_height))
 
     for i, line in enumerate(lines):
-        c = make_line(line).resize((image_width, height))
-        img.paste(c, (0, int(height * i * 1.05)))
+        c = make_line(line).resize((width, height))
+        img.paste(
+            c, (int((width + padding) * (i // row_size)), int((height + padding) * (i % row_size)))
+        )
 
     return img
