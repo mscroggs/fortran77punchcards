@@ -1,6 +1,7 @@
 """Punchcards."""
 
 import os
+import typing
 from PIL import Image
 from fortran77punchcards.character_encoding import encoding
 
@@ -33,5 +34,22 @@ def make_line(line: str) -> Image.Image:
             else:
                 y0 = 275 + 100 * row
             img.paste((255, 255, 255, 0), (x0, y0, x0 + 29, y0 + 80))
+
+    return img
+
+
+def make_script(
+    lines: typing.List[str],
+    image_width: int = 2000,
+) -> Image.Image:
+    """Convert a FORTRAN77 script to images of punchcards."""
+    c = card()
+    height = int(image_width * c.size[1] / c.size[0])
+    image_height = int(height * (1.05 * len(lines) - 0.05))
+    img = Image.new(mode="RGBA", size=(image_width, image_height))
+
+    for i, line in enumerate(lines):
+        c = make_line(line).resize((image_width, height))
+        img.paste(c, (0, int(height * i * 1.05)))
 
     return img
