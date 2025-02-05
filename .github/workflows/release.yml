@@ -1,0 +1,25 @@
+name: Push to PyPI
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  python-library:
+    name: Release Python library
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Build
+        run: |
+          python3 -m pip install build
+          python3 -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

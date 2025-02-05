@@ -1,0 +1,43 @@
+[project]
+name = "fortran77punchcards"
+version = "0.1.2"
+description = "convert FORTRAN77 code to images of punchcards"
+readme = "README.md"
+requires-python = ">=3.8.0"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Matthew Scroggs", email = "fortran@mscroggs.co.uk" }
+]
+dependencies = ["PIL"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+include = [
+    { path = "fortran77punchcards/punchcard.png", format = ["sdist", "wheel"] }
+]
+
+[project.urls]
+homepage = "https://github.com/mscroggs/fortran77punchcards"
+repository = "https://github.com/mscroggs/fortran77punchcards"
+
+[project.optional-dependencies]
+style = ["ruff", "mypy"]
+test = ["pytest"]
+ci = ["qr-generate[style,test]"]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+exclude = ["test/input_dir/*"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+ignore_missing_imports = true
