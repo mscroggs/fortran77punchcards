@@ -1,4 +1,6 @@
-encoding = {
+import typing
+
+encoding: typing.Dict[str, typing.List[int]] = {
     " ": [],
     "-": [11],
     "0": [0],

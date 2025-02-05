@@ -1,28 +1,23 @@
 import os
 from PIL import Image
-from PIL import ImageDraw
 from fortran77punchcards.character_encoding import encoding
 
 _card = None
 
 
-def card() -> Image:
+def card() -> Image.Image:
     """Get image of punchcard."""
     global _card
     if _card is None:
-        _card = Image.open(os.path.join(
-            os.path.dirname(os.path.realpath(__file__)),
-            "punchcard.png"
-        )).convert("RGBA")
+        _card = Image.open(
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), "punchcard.png")
+        ).convert("RGBA")
     return _card.copy()
 
 
-def make_line(line: str) -> Image:
+def make_line(line: str) -> Image.Image:
     """Convert a line of FORTRAN77 to an image of a punchcard."""
     img = card()
-
-    mask = Image.new('L', img.size, color=255)
-    draw = ImageDraw.Draw(mask)
 
     for col, c in enumerate(line.upper()):
         if c not in encoding:
@@ -35,6 +30,6 @@ def make_line(line: str) -> Image:
                 y0 = 75
             else:
                 y0 = 275 + 100 * row
-            img.paste((255, 255, 255, 0), [x0, y0, x0 + 29, y0 + 80])
+            img.paste((255, 255, 255, 0), (x0, y0, x0 + 29, y0 + 80))
 
     return img
