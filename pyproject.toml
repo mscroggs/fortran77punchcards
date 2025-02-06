@@ -1,6 +1,6 @@
 [project]
 name = "fortran77punchcards"
-version = "0.0.1"
+version = "0.0.1dev"
 description = "convert FORTRAN77 code to images of punchcards"
 readme = "README.md"
 requires-python = ">=3.8.0"

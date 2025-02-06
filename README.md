@@ -1,5 +1,7 @@
 # FORTRAN77 Punchcards
 
+[![PyPI](https://img.shields.io/pypi/v/fortran77punchcards?color=blue&label=PyPI&logo=pypi&logoColor=white)](https://pypi.org/project/fortran77punchcards/)
+
 `fortran77punchcards` is a Python library that converts FORTRAN77 code to images of punchcards.
 
 The code is licensed under a [MIT license](LICENSE). The [image of a punchcard]() is licensed
